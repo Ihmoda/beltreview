@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>User</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+      {{ books_reviewed }}
+        <h1>User Alias: {{ user.alias }}</h1>
+        <p>Name: {{ user.first_name }} </p>
+        <p>Email: {{ user.email }} </p>
+        <p> Tot Reviews: {{ review_count }} </p>
+
+        <h4>Posted Reviews on the following books</h4>
+
+        {% for book in books_reviewed %}
+        <p><span><a href="/books/{{ book.id }}">{{book.title}}</a></span></p>
+        {% endfor %} 
+      
+    </div>
+
+
+   
+  </body>
+</html>

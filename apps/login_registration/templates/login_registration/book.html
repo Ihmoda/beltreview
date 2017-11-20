@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Book</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container-fluid">
+        <ul class="nav justify-content-center|justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link" href="/books">Home</a>
+            </li>
+            <li class="nav-item">
+                <form action="/logout" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link">Logout</button>
+                </form>
+            </li>
+        </ul>
+        <h1>{{ book.title }}</h1>
+        <p>Author: {{ book.author.name }}</p>
+        <h2>Reviews</h2>
+        <div class="row">
+            <div class="col-md-6">
+                {% for review in reviews %}
+                <p>Rating: {{ review.stars }}/5 stars</p>
+                <p><span><a href="/users/{{ review.user.id }}">{{ review.user.first_name }}</a></span> says: {{ review.content }}</p>
+                {% if request.session.userid == review.user.id %}
+                    <a href="/reviews/{{ book.id }}/destroy/{{ review.id }}">Delete</a>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                <form action="/review/new/{{ book.id }}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                      <label for="review">Add Review</label>
+                      <textarea class="form-control" name="review" id="" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="rating">Rating</label>
+                      <select class="form-control" name="rating" id="">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+      
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Success</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="Container">
+      <ul class="nav justify-content-center|justify-content-end">
+          <li class="nav-item">
+              <h1>Welcome, {{ user.first_name }}!</h1>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/books/new">Add a book and Review</a>
+          </li>
+          <li class="nav-item">
+            <form action="/logout" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-link">Logout</button>
+            </form>
+          </li>
+      </ul>
+        <div class="row">
+
+          <div class="col-md-4">
+            <h3>Recent books with reviews:</h3>
+            {% for review in reviews %}
+            <div>
+              <h5><a href="/books/{{ review.book_id}}">{{ review.book.title }}</a></h5>
+              <p>Rating: {{ review.stars }}/5 stars</p>
+              <p>{{ review.content }}</p>
+            </div>
+            {% endfor %}
+          </div>
+
+
+          <div class="col-md-8">
+            <h5>Other Book Reviews</h5>
+            {% for book in other_books %}
+            <p><a href="/books/{{ book.id }}">{{ book.title }}</a></p>
+            {% endfor %}
+          </div>
+
+        </div>
+
+        
+
+    </div>
+  </body>
+</html>
